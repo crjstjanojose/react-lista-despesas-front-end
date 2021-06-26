@@ -34,7 +34,7 @@ export function Login(props: ILogin) {
         props.onSign(user);
       },
       (e) => {
-        setError("Email não encontrado ou senha inválida");
+        setError("E-mail não encontrado ou senha inválida");
       }
     );
   }

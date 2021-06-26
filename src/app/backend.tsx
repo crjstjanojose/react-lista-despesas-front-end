@@ -23,6 +23,13 @@ export function signIn(email: string, senha: string): Promise<IUsuario> {
   }).then(handleResponse);
 }
 
+export function singOut(): Promise<IUsuario> {
+  return fetch(`http://localhost:3001/sessao/finalizar`, {
+    method: "POST",
+    credentials: "include",
+  }).then(handleResponse);
+}
+
 function handleResponse(response: Response) {
   if (response.ok) {
     return response.json();
