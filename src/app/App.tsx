@@ -1,17 +1,35 @@
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import { TelaDespesa } from "./TelaDespesas";
+import { useEffect, useState } from "react";
+import { checkUser } from "./backend";
+import { IUsuario } from "./tipos";
+import { Login } from "./Login";
 
 function App() {
-  return (
-    <HashRouter>
-      <Switch>
-        <Route path="/despesas/:mes">
-          <TelaDespesa></TelaDespesa>;
-        </Route>
-      </Switch>
-      <Redirect to={{ pathname: "/despesas/" + obterMesAtual() }} />
-    </HashRouter>
-  );
+  const [user, setUser] = useState<IUsuario | null>(null);
+  useEffect(() => {
+    checkUser().then(
+      (user) => {
+        setUser(user);
+      },
+      () => setUser(null)
+    );
+  }, [user]);
+
+  if (user) {
+    return (
+      <HashRouter>
+        <Switch>
+          <Route path="/despesas/:mes">
+            <TelaDespesa></TelaDespesa>;
+          </Route>
+        </Switch>
+        <Redirect to={{ pathname: "/despesas/" + obterMesAtual() }} />
+      </HashRouter>
+    );
+  } else {
+    return <Login onSign={(user) => setUser(user)} />;
+  }
 }
 
 function obterMesAtual(): string {

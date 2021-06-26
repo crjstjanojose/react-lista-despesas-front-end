@@ -10,7 +10,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { useEffect, useState } from "react";
-import { buscaDespesa } from "./backend";
+import { buscaDespesas } from "./backend";
 import { IDespesa } from "./tipos";
 import { useParams, useHistory } from "react-router-dom";
 
@@ -38,7 +38,7 @@ export function TelaDespesa() {
   const [despesas, setDespesas] = useState<IDespesa[]>([]);
 
   useEffect(() => {
-    buscaDespesa(anoMes).then((despesas) => setDespesas(despesas));
+    buscaDespesas(anoMes).then((despesas) => setDespesas(despesas));
   }, [anoMes]);
 
   let valorTotal = 0;
